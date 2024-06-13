@@ -15,6 +15,7 @@ public class CharactersGrid extends VerticalLayout {
 
 
     Grid<Character> grid = new Grid<>(Character.class, false);
+    Button newCharacter;
 
     public CharactersGrid(ArrayList<Character> listCharacters, DataService dataService) {
 
@@ -45,7 +46,7 @@ public class CharactersGrid extends VerticalLayout {
             dialog.open();
         })).setHeader("Edit");
 
-        Button newCharacter = new Button("New Character", e -> {
+        newCharacter = new Button("New Character", e -> {
             Dialog dialog = new NewDialog(dataService).generatenewDialog();
             dialog.setCloseOnEsc(false);
             dialog.setCloseOnOutsideClick(false);
@@ -56,6 +57,7 @@ public class CharactersGrid extends VerticalLayout {
             });
             dialog.open();
         });
+        newCharacter.setEnabled(false);
         add(grid, newCharacter);
 
 
@@ -64,6 +66,11 @@ public class CharactersGrid extends VerticalLayout {
     public void refreshGrid(ArrayList<Character> listCharacters) {
         grid.setItems(listCharacters);
         grid.getDataProvider().refreshAll();
+        if(listCharacters.size() > 0) {
+            newCharacter.setEnabled(true);
+        } else {
+            newCharacter.setEnabled(false);
+        }
     }
 
 

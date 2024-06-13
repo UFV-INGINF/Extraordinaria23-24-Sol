@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+
 import com.ufv.dis.api.models.Character;
 
 
@@ -24,7 +25,7 @@ public class LocalCharactersController {
     }
 
     @GetMapping(value = "/db/{id}", produces = "application/json")
-    public ResponseEntity<Character> readCharacter(@PathVariable int  id) {
+    public ResponseEntity<Character> readCharacter(@PathVariable int id) {
         // Controller Method to read a character from the local database
         return ResponseEntity.ok(localService.readCharacter(id));
     }
@@ -45,6 +46,12 @@ public class LocalCharactersController {
     public ResponseEntity<Character> updateCharacter(@PathVariable int id, @RequestBody Character character) {
         // Controller Method to update a character in the local database
         return ResponseEntity.ok(localService.updateCharacter(id, character));
+    }
+
+    @DeleteMapping(value = "/reset")
+    public ResponseEntity<Boolean> resetLocalDB() {
+        // Controller Method to delete the local database
+        return ResponseEntity.ok(localService.resetLocalDB());
     }
 
     //Add POST and PUT methods here to create and update characters in the local database

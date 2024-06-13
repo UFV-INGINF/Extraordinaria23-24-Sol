@@ -25,35 +25,7 @@ public class RemoteCharactersController {
 
     // Añadir un botón de reset database en la página principal.
     public ResponseEntity<APIResponse> getCharacters(@Autowired DragonBallAPIService dbService) {
-        APIResponse respuesta = dbService.getDBAPIInfo("characters");
-
-        //Now, if the local file does not exist, we will create one
-        //We will use the Gson library to convert the object to a JSON string
-        Gson gson = new Gson();
-
-        File file = new File("db.json");
-
-        // Comprobar si el archivo existe
-//        if (!file.exists()) {
-        try {
-            // Si no existe, crear un nuevo archivo
-            file.createNewFile();
-
-            // Escribir la cadena JSON en el archivo
-            BufferedWriter writer = new BufferedWriter(new FileWriter("db.json"));
-            gson.toJson(respuesta.getItems(), writer);
-            writer.flush();
-
-            // Cerrar el escritor
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        } else {
-//        System.out.println("El archivo ya existe");
-//        }
-
-
+        APIResponse respuesta = dbService.getDBAPIInfo();
         return ResponseEntity.ok(respuesta);
     }
 

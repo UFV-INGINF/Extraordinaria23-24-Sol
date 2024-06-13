@@ -24,15 +24,6 @@ public class DataService implements Serializable {
 
     private final static String API_URL = "http://localhost:8080/api";
 
-    //Legacy method to be removed
-    public String greet(String name) {
-        if (name == null || name.isEmpty()) {
-            return "Hello anonymous user";
-        } else {
-            return "Hello " + name;
-        }
-    }
-
     public ArrayList<Character> getCharacters() {
         String url = String.format("%s/db", API_URL);
 
@@ -118,18 +109,18 @@ public class DataService implements Serializable {
         }
     }
 
-    public void resetDB() {
-        String url = String.format("%s/remote/characters", API_URL);
+    public ResponseEntity<Boolean> resetDB() {
+        String url = String.format("%s/reset", API_URL);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = null;
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(url))
-                    .GET() // GET is default
+                    .DELETE() // GET is default
                     .build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.statusCode());
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return ResponseEntity.ok(response.statusCode() == 200);
         } catch (
                 URISyntaxException e) {
             throw new RuntimeException(e);

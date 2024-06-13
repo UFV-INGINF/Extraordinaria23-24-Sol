@@ -2,6 +2,7 @@ package com.ufv.dis.api.services;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ufv.dis.api.models.APIResponse;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -87,6 +88,27 @@ public class LocalDragonBallAPIService {
             e.printStackTrace();
         }
         return character;
+    }
+
+    public Boolean resetLocalDB() {
+        // Reset the local database
+        File file = new File("db.json");
+
+        // Intentar borrar el archivo
+        boolean seBorro = file.delete();
+
+        // Comprobar si el archivo se borró correctamente
+        if (seBorro || !file.exists()) {
+            // El archivo se borró correctamente
+            // Aquí puedes hacer algo si el archivo se borró correctamente
+            System.out.println("El archivo se borró correctamente");
+            DragonBallAPIService apiService = new DragonBallAPIService();
+            APIResponse response = apiService.getDBAPIInfo();
+            return true;
+        } else {
+            System.out.println("El archivo db.json no se ha podido borrar");
+            return false;
+        }
     }
 
     private int getLastId() {

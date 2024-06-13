@@ -35,7 +35,6 @@ public class DragonBallAPIService {
             Gson gson = new Gson();
             APIResponse responseObj = gson.fromJson(response.body(), APIResponse.class);
 
-
             File file = new File("db.json");
 
             // Comprobar si el archivo existe

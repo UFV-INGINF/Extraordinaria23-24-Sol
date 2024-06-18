@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ufv.dis</groupId>
-	<artifactId>api</artifactId>
+	<artifactId>api-dragonball</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Api Dragon Ball</name>
 	<description>API for final exam</description>

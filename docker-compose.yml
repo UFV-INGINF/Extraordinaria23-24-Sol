@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  backend:
+    build: 
+      context: api
+      dockerfile: ./api/Dockerfile
+    networks:
+      - mynetwork
+
+  frontend:
+    build: 
+      context: front
+      dockerfile: ./front/Dockerfile
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

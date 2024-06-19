@@ -1,21 +1,28 @@
-version: '3'
+version: '3.9'
 
 services:
   backend:
+    container_name: backend_goku
     build: 
-      context: api
-      dockerfile: ./api/Dockerfile
+      context: ./api
+      dockerfile: Dockerfile
     networks:
-      - mynetwork
+      - goku_net
+    ports:
+      - "9001:8081"
 
   frontend:
+    container_name: frontend_goku
     build: 
-      context: front
-      dockerfile: ./front/Dockerfile
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "10000:8080"
     depends_on:
       - backend
     networks:
-      - mynetwork
+      - goku_net
 
 networks:
-  mynetwork:
+  goku_net:
+    driver: bridge

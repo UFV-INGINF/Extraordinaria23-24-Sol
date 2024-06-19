@@ -22,11 +22,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DataService implements Serializable {
 
-    private final static String API_URL = "http://localhost:8080/api";
+    private final static String API_URL = "http://backend:8081/api";
 
     public ArrayList<Character> getCharacters() {
         String url = String.format("%s/db", API_URL);
-
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = null;
         try {
@@ -45,7 +44,7 @@ public class DataService implements Serializable {
                 URISyntaxException e) {
             throw new RuntimeException(e);
         } catch (
-                IOException e) {
+                IOException e ) {
             throw new RuntimeException(e);
         } catch (
                 InterruptedException e) {
